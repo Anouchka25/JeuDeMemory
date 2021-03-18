@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset("css/plateau.css")}}">    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset("js/plateau.js")}}"></script>
+{% endblock %}
+
+
+
+{% block title %}Jouer à memory{% endblock %}
+
+{% block body %}
+
+
+<div class="row launcher">
+    <div class="col-5"></div>
+    <div class="col-2 mt-5" align='center'>
+        <h1>Best Players</h1>
+        <table class = 'table table-striped' id = 'best_players'>
+
+        {% for game in games %}
+            <tr>
+                <th>{{game.pseudo}}</th>
+                <th>{{game.score}}</th>
+            </tr>
+        {% endfor %}
+            
+        </table>
+
+    </div>
+</div>
+
+<div class="row launcher">
+    
+    <div class="col" align='center'>
+        <button type="button" class="btn btn-success p-3 m-3 start-game"><div class="display-5"> Jouer </div></button>
+    </div>
+</div>
+
+
+
+<div class="row game">
+    <div class="col-1"></div>
+    <div class="col-10" align='center'>
+        <h3 id='pseudo'></h3>
+    </div>
+</div>
+
+
+<div class="row game hide">
+    <div class="col-1"></div>
+    <div class="col-10" align='center'>
+        <div id="progressbar" class='mt-2'></div>
+    </div>
+</div>
+
+<div class="row game hide">
+    <div class="col-1"></div>
+    <div class="col-10" align='center'>
+        <h3 id="timer" class='md-3 mt-1'>...</h3>
+    </div>
+
+</div>
+
+    
+  <div class="row game hide">
+        
+        <div class="col-1"></div>
+        <div class="col-10" align='center'>
+            <table class = 'plateau m-2'>
+                {% for row in 0..3 %}
+                    <tr class="cards-row">
+                        {% for col in 0..6 %}
+                            <th class="card-cell" id='{{decks[row*7+col] ~ "_" ~ (row*7+col) }}'>
+                                
+                                    <img  class='card hide' src='{{asset("/images/fruits/" ~ decks[row*7+col] ~ ".png")}}'>
+                                
+                            </th>
+                        {% endfor %}
+                        </tr>
+                {% endfor %}
+                
+
+            </table>
+            
+             
+            
+        </div>
+    </div>
+
+        
+    <div class="row restart hide">
+        <div class="col-1"></div>
+        <div class="col-10" align='center'>
+            <button type="button" class="btn btn-sucess p-2 m-2"><a class="display-4" href="{{path('plateau')}}"> Voir les scores </a></button>
+        </div>
+    </div>
+
+
+
+{% endblock %}
